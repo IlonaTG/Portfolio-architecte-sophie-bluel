@@ -137,6 +137,28 @@ li:hover {
 	width: 100%;
 
 }
+
+.filters{
+	margin: 0 22%;
+	margin-bottom: 30px;
+	display: flex;
+	justify-content: space-between;
+}
+button{
+	padding: 5px 10px;
+	border: 2px solid #1D6154;
+	border-radius: 20px;
+	background-color: white;
+	color: #1D6154;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+button:hover{
+	color: white;
+	background-color: #1D6154;
+}
+
 #contact {
 	width: 50%;
 margin: auto;
