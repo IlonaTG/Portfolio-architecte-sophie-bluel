@@ -43,8 +43,6 @@ async function afficherToutesLesImages() {
         // Créer un nom pour afficher le nom du projet
         const caption = document.createElement("figcaption");
         caption.textContent = element.title;
-
-        // Ajouter l'image et le nom du projet à la div du projet
    
         figure.appendChild(image);
         figure.appendChild(caption);
@@ -128,5 +126,52 @@ log.addEventListener("click", () => {
   log.innerText = "login";
   localStorage.clear;
 });
+
+
+// Sélection du lien "Modifier"
+const modifierLink = document.querySelector('.mesProjets-changing');
+
+// Sélection du modal et de ses éléments
+const modalContainer = document.getElementById('modal-container');
+const closeModalBtn = document.querySelector('.fa-xmark');
+const imageContainer = document.querySelector('.image-container');
+
+// Ajout d'un écouteur d'événements pour ouvrir le modal au clic sur le lien "Modifier"
+modifierLink.addEventListener('click', () => {
+    modalContainer.style.display = 'block'; // Afficher le modal
+    afficherToutesLesImages(); // Afficher les images dans le modal (fonction déjà définie)
+});
+
+// Ajout d'un écouteur d'événements pour fermer le modal en cliquant sur la croix
+closeModalBtn.addEventListener('click', () => {
+    modalContainer.style.display = 'none'; // Cacher le modal
+});
+
+// Fonction pour afficher toutes les images dans le modal (similaire à votre fonction existante)
+async function afficherToutesLesImages() {
+    imageContainer.innerHTML = ''; // Effacer le contenu actuel du modal
+
+    // Une requête Fetch pour obtenir les données de l'API
+    const response = await fetch('http://localhost:5678/api/works/')
+        .then((response) => response.json())
+        .then((data) => {
+            data.forEach((element) => {
+                const image = document.createElement('img');
+                image.src = element.imageUrl;
+                imageContainer.appendChild(image); // Ajouter l'image au conteneur du modal
+            });
+        });
+}
+
+
+// Fonction pour fermer le modal en cliquant dehors de la modal
+function fermerModal(event) {
+    if (event.target === modalContainer) {
+        modalContainer.style.display = 'none'; // Cacher le modal si le clic est en dehors de celui-ci
+    }
+}
+
+// Ajout d'un gestionnaire d'événements pour fermer le modal lors d'un clic en dehors de celui-ci
+window.addEventListener('click', fermerModal);
 
 
