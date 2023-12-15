@@ -76,10 +76,36 @@
 			<button class="image-add__button">Ajouter une photo</button>
 		</div>
 		<div class="deleteGallery">
-			<i class="fa-solid fa-trash-can"></i>
+			
 		</div>
 	</div>
-</aside>
+	<div class="modal-wrapper__second">
+			<i class="fa-solid fa-arrow-left"></i>
+			<i class="fa-solid fa-xmark"></i>
+		<div class="modal-title">
+		  	<h3>Ajout photo</h3>
+		</div>
+		<div class="image-upload">
+
+			<div class="image-preview"></div>
+			<i class="fa-regular fa-image"></i>
+		  	<button class="upload-btn">+ Ajouter photo</button>
+			<p>jpg, png : 4mo max</p>
+		</div>
+		<form class="form-modal" method="post">
+			<label for="input-title">Titre</label>
+			<input type="text" class="photo-title" placeholder="" required />
+			<label for="category" class="category">Catégorie</label>
+			<select class="photo-category" name="photo-category" value="Choisisez une categorie" required />
+			<option value="">Choisisez une catégorie</option>
+            <option id="1" class="categoryChoice">Objets</option>
+            <option id="2" class="categoryChoice">Appartements</option>
+            <option id="3" class="categoryChoice">Hôtels & Restaurants</option>
+			</select>
+		</form>
+		<button class="validate-btn">Valider</button>
+	  </div>
+	</aside>
 </main>
 
 <footer>
