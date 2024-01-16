@@ -86,11 +86,17 @@
 		  	<h3>Ajout photo</h3>
 		</div>
 		<div class="image-upload">
-
+			<input
+            type="file"
+            class="input-newPicture"
+            id="addPic"
+            name="addPic"
+            accept="jpg/png"
+          />
 			<div class="image-preview"></div>
 			<i class="fa-regular fa-image"></i>
-		  	<button class="upload-btn">+ Ajouter photo</button>
 			<p>jpg, png : 4mo max</p>
+			<button class="upload-btn">+ Ajouter photo</button>
 		</div>
 		<form class="form-modal" method="post">
 			<label for="input-title">Titre</label>

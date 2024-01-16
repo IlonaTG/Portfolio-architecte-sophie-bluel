@@ -481,3 +481,22 @@ padding: 10px;
 	cursor: pointer;
   }
   
+  .label-newPicture{
+	margin-left: auto;
+	margin-right: auto;
+	display:flex;
+	justify-content: center;
+	align-items:center;
+	background:#cbd6dc;
+	color:#306685;
+	font-family: "Work Sans";
+	font-size:14px;
+	border-radius:33px;
+	width:35%;
+	padding:10px;
+
+  }
+
+  .input-newPicture{
+	visibility: hidden;
+  }

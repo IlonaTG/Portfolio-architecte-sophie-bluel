@@ -207,14 +207,6 @@ async function afficherToutesLesImages() {
 
   
     
-  
-    
-      
-  
-
-
-
-
 
 
 
@@ -287,15 +279,16 @@ function cacherElementsUpload() {
   }
 }
 
+
 const uploadButton = document.querySelector(".upload-btn");
 const imageUpload = document.querySelector('.image-upload');
-
 
 uploadButton.addEventListener('click', async () => {
   try {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.accept = 'image/jpeg, image/png'; // Accepter seulement les fichiers JPEG et PNG
+    fileInput.id = 'addPic';
 
     fileInput.addEventListener('change', async () => {
       const file = fileInput.files[0];
@@ -305,7 +298,6 @@ uploadButton.addEventListener('click', async () => {
         alert('La taille de l\'image dépasse 4 Mo. Veuillez sélectionner une image plus petite.');
         return; // Arrêter l'exécution si la taille dépasse la limite
       }
-
 
       // Afficher l'aperçu de l'image sélectionnée
       const reader = new FileReader();
@@ -318,9 +310,7 @@ uploadButton.addEventListener('click', async () => {
       cacherElementsUpload();
       };
       reader.readAsDataURL(file);
-
     });
-
     fileInput.click(); // Simuler un clic sur le fileInput pour ouvrir la boîte de dialogue de sélection de fichiers
   } catch (error) {
     console.error('Une erreur s\'est produite :', error);
@@ -332,7 +322,7 @@ uploadButton.addEventListener('click', async () => {
 const validateBtn = document.querySelector('.validate-btn');
 
 validateBtn.addEventListener('click', async function(event) {
-    event.preventDefault(); // Empêcher la soumission du formulaire par défaut
+  event.preventDefault(); // Empêcher la soumission du formulaire par défaut
 
     const titleInput = document.querySelector('.photo-title');
     const categoryInput = document.querySelector('.photo-category');
@@ -341,15 +331,12 @@ validateBtn.addEventListener('click', async function(event) {
 
     // Vérifier si les champs obligatoires sont vides
     if (titleInput.value.trim() === '' || categoryInput.value === '' || imagePreview.innerHTML === '') {
-        // Afficher un message d'erreur ou effectuer une action pour indiquer que les champs sont obligatoires
         alert('Veuillez remplir tous les champs obligatoires: ajouter une photo, un titre et une catégory !');
-        // Vous pouvez également ajouter du style pour indiquer visuellement que les champs sont obligatoires
         titleInput.style.border = '1px solid red';
         categoryInput.style.border = '1px solid red';
-        // Autres actions à prendre en cas de champs obligatoires non remplis
     } else {
       try {
-        const fileInput = document.querySelector('.image-preview');
+        const fileInput = document.getElementById('addPic');
         const file = fileInput.files[0];
 
         const formData = new FormData();
@@ -359,7 +346,7 @@ validateBtn.addEventListener('click', async function(event) {
 
         const token = localStorage.getItem('token'); // Récupérer le token depuis le localStorage
 
-        const response = await fetch('http://localhost:5678/api/works/', {
+        const response = await fetch('http://localhost:5678/api/works', {
             method: 'POST',
             headers: {
                 accept: 'application/json',
@@ -370,19 +357,18 @@ validateBtn.addEventListener('click', async function(event) {
 
         if (response.ok) {
           const newImageData = await response.json(); // Récupérer les données de la nouvelle image depuis la réponse
-          // Maintenant, ajoutez cette nouvelle image à la galerie
+          // Ajout de la nouvelle image à la galerie
           const figure = document.createElement("figure");
           const image = document.createElement("img");
-          image.src = newImageData.imageUrl; // Utilisez le chemin de l'image reçu depuis la réponse
+          image.src = newImageData.imageUrl; // Utilisation du chemin de l'image reçu depuis la réponse
           const caption = document.createElement("figcaption");
-          caption.textContent = newImageData.title; // Utilisez le titre de l'image reçu depuis la réponse
+          caption.textContent = newImageData.title; // Utilisation du titre de l'image reçu depuis la réponse
 
           figure.appendChild(image);
           figure.appendChild(caption);
-          itemsContainer.appendChild(figure); // Ajoutez la nouvelle image à la galerie
+          itemsContainer.appendChild(figure); // Ajout de la nouvelle image à la galerie
       } else {
-          console.error('Erreur lors de l\'ajout de la photo à la galerie.');
-          // Gérer les erreurs en affichant le contenu de la réponse par exemple
+        console.error('Erreur lors de l\'ajout de la photo à la galerie.');
           const errorResponse = await response.json();
           console.error('Contenu de la réponse en cas d\'erreur :', errorResponse);
       }
